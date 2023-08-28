@@ -1,6 +1,8 @@
-function OperatorButton({children}) {
+import { ACTIONS } from "./App"
+
+function OperatorButton({children, dispatch}) {
     return (
-        <button className="btn op-btn">{children}</button>
+        <button className="btn op-btn" onClick={() => dispatch({type: ACTIONS.OPBTN, payload: children})}>{children}</button>
     )
 }
 
