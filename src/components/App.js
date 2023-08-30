@@ -1,4 +1,4 @@
-import { useReducer } from "react";
+import { useReducer, useState } from "react";
 import NumPad from "./NumPad";
 import Output from "./Output";
 import ThemeToggle from "./ThemeToggle";
@@ -54,17 +54,18 @@ function reducer(state, action) {
         state.firstNum !== null &&
         state.secondNum === null
       ) {
+        const result = state.isNegative
+          ? evaluate(state.firstNum, -1 * Number(state.current), state.operator)
+          : evaluate(state.firstNum, Number(state.current), state.operator);
+          if (isNaN(result) || !isFinite(result)) {
+            alert("Invalid operation!");
+            return initialState
+          }
         return {
           ...state,
           operator: action.payload,
           current: "",
-          firstNum: state.isNegative
-            ? evaluate(
-                state.firstNum,
-                -1 * Number(state.current),
-                state.operator
-              )
-            : evaluate(state.firstNum, Number(state.current), state.operator),
+          firstNum: result,
           isNegative: false,
         };
       }
@@ -83,15 +84,17 @@ function reducer(state, action) {
       return state;
     case ACTIONS.EVALBTN:
       if (state.current !== "" && state.secondNum === null) {
-        const result = (
-          state.isNegative
-            ? evaluate(
-                state.firstNum,
-                -1 * Number(state.current),
-                state.operator
-              )
-            : evaluate(state.firstNum, Number(state.current), state.operator)
-        );
+        const result = state.isNegative
+          ? evaluate(state.firstNum, -1 * Number(state.current), state.operator)
+          : evaluate(state.firstNum, Number(state.current), state.operator);
+        if (isNaN(result) || !isFinite(result)) {
+          alert("Invalid operation!");
+          return {
+            ...state,
+            current: "",
+            isNegative: false,
+          };
+        }
         return {
           ...state,
           secondNum: state.isNegative
@@ -131,10 +134,13 @@ function evaluate(a, b, op) {
 function App() {
   const [{ firstNum, secondNum, operator, current, isNegative }, dispatch] =
     useReducer(reducer, initialState);
-
+  const [darkMode, setDarkMode] = useState(false);
+  function handleChangeTheme() {
+    setDarkMode((currentTheme) => !currentTheme);
+  }
   return (
-    <div className="calculator">
-      <ThemeToggle />
+    <div className={`calculator ${darkMode ? "dark-mode" : ""}`}>
+      <ThemeToggle darkMode={darkMode} onChangeTheme={handleChangeTheme} />
       <Output
         current={current}
         isNegative={isNegative}

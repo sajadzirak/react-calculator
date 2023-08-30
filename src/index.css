@@ -1,3 +1,24 @@
+:root {
+  --text-color: #373737;
+  --output-back-color: #fefefe;
+  --toggle-background-color: #a9dcfd;
+  --active-toggle-color: #d8eeff;
+  --numpad-background-color: #9ee8ff;
+  --btn-background-color: rgba(255, 255, 255, 0.3);
+  --btn-hover-color: #D8EEFF;
+  --box-shadow-color: hsla(0, 0%, 0%, 0.25);
+}
+
+.dark-mode {
+  --text-color: #FBFBFB;
+  --output-back-color: #252628;
+  --toggle-background-color: #003661;
+  --active-toggle-color: #1B6A9C;
+  --numpad-background-color: #0F2F6B;
+  --btn-background-color: rgba(5, 5, 5, 0.3);
+  --btn-hover-color: rgba(5, 5, 5, 0.5);
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -6,33 +27,37 @@
 
 body {
   min-height: 100vh;
-  color: #373737;
   font-family: "Ubuntu", sans-serif;
+  background-color: #d3d3d3;
+  background-image: linear-gradient(315deg, #d3d3d3 0%, #57606f 74%);
 }
 
 button {
   cursor: pointer;
   border: none;
+  color: var(--text-color);
 }
 
 .calculator {
   width: 350px;
   margin: 5rem auto;
-  background-color: #fefefe;
+  background-color: var(--output-back-color);
   border-radius: 40px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  box-shadow: 0 0px 4px 0 hsla(0, 0%, 0%, 0.25);
+  box-shadow: 0 0px 4px 0 var(--box-shadow-color);
 }
 
 .theme-toggle {
-  background-color: #a9dcfd;
+  background-color: var(--toggle-background-color);
   display: grid;
   grid-template-columns: 1fr 1fr;
   place-items: center;
   border-radius: 40px;
   margin: 3rem 0;
+  font-size: 1.5rem;
+  color: var(--text-color);
 }
 
 .theme-toggle div {
@@ -42,7 +67,7 @@ button {
 
 .active-toggle {
   border-radius: 40px;
-  background-color: #d8eeff;
+  background-color: var(--active-toggle-color);
 }
 
 .output {
@@ -50,6 +75,7 @@ button {
   margin: 4rem 0 1rem;
   padding: 0 2.5rem;
   font-size: 1.2rem;
+  color: var(--text-color);
 }
 
 .output__prev {
@@ -71,8 +97,8 @@ button {
   grid-template-columns: repeat(4, 1fr);
   gap: 0.8rem;
   border-radius: 40px;
-  background-color: #9ee8ff;
-  box-shadow: 0 -4px 4px 0 hsla(0, 0%, 0%, 0.25);
+  background-color: var(--numpad-background-color);
+  box-shadow: 0 -4px 4px 0 var(--box-shadow-color);
 }
 
 .btn {
@@ -81,7 +107,7 @@ button {
 }
 
 .btn:hover {
-  background-color: #D8EEFF;
+  background-color: var(--btn-hover-color);
 }
 
 .top-buttons {
@@ -98,7 +124,6 @@ button {
   display: grid;
   width: 50px;
   gap: 0.8rem;
-  /* grid-template-rows: repeat(5, 1fr); */
 }
 
 .right-buttons button {
@@ -107,11 +132,11 @@ button {
 
 .right-buttons button:last-child {
   border-radius: 50%;
-  background-color: #D8EEFF;
+  background-color: var(--btn-hover-color);
 }
 
 .right-buttons, .top-buttons {
-  background-color: rgba(255, 255, 255, 0.3);
+  background-color: var(--btn-background-color);
   border-radius: 40px;
   overflow: hidden;
   box-shadow: 0 3px 15px 0 hsla(0, 0%, 0%, 0.05);
@@ -122,15 +147,18 @@ button {
 }
 
 .num-btn {
-  background-color: rgba(255, 255, 255, 0.3);
+  background-color: var(--btn-background-color);
   border-radius: 50%;
   width: 50px;
   height: 50px;
-  box-shadow: 0 4px 4px 0 hsla(0, 0%, 0%, 0.25);
+  box-shadow: 0 4px 4px 0 var(--box-shadow-color);
 }
 
 @media screen and (max-width: 375px) {
   .calculator {
     width: 300px;
+  }
+  .output {
+    padding: 0 2rem;
   }
 }
